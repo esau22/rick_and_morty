@@ -44,7 +44,7 @@ export default function App() {
   // console.log(characters)
   const { characters } = useSelector((state) => state);
   function onSearch(id) {
-    axios(`http://localhost:5040/rickandmorty/character/${id}`).then(
+    axios(`http://localhost:5000/rickandmorty/character/${id}`).then(
       // axios("http://localhost:1222/")
       ({ data }) => {
         if (data.name) {
@@ -65,7 +65,7 @@ export default function App() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/rickandmorty/characters`)
+      .get(`http://localhost:5000/rickandmorty/allcharacters`)
       .then((result) => {
         dispatch(addChar(result.data));
       });
