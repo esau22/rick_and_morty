@@ -7,7 +7,8 @@ const axios = require("axios");
 
 const URL = " https://rickandmortyapi.com/api/character";
 const STATUS_OK = 200;
-const STATUS_ERROR = 404;
+//TODO: TESTING <-> fix status 404 to -> 500
+const STATUS_ERROR = 500;
 
 const EMAIL_USER = "eje@gmail.com";
 const PASSWORD_USER = "@123QWEasd";
@@ -15,12 +16,14 @@ const PASSWORD_USER = "@123QWEasd";
 const login = function (req, res) {
   const { password, email } = req.query;
   if (!password || !email) {
-    return res.status(STATUS_ERROR).end("password or email null");
+    //TODO: TESTING <-> fix error to -> .json({ access: false })
+    return res.status(STATUS_ERROR).json({ access: false });
   }
   if (password === PASSWORD_USER && email === EMAIL_USER) {
     res.status(STATUS_OK).json({ access: true });
   } else {
-    res.status(204).json({ access: false });
+    //TODO: TESTING <-> fix error to -> .json({ access: false })
+    res.status(STATUS_OK).json({ access: false });
   }
 };
 /*
@@ -29,35 +32,42 @@ const login = function (req, res) {
 Front <- token -> cockies 
 */
 
-const getCharacterId = function (req, res) {
+const getCharacterId = async function (req, res) {
   console.log("in char route");
-  const { id } = req.params;
-  axios
-    .get(`${URL}/${id}`)
-    .then(({ data }) => data)
-    .then((ch) => {
-      const { id, name, gender, species, origin, image, status } = ch;
-      const character = {
-        id,
-        name,
-        gender,
-        species,
-        origin: origin?.name,
-        image,
-        status,
-      };
-      res.status(STATUS_OK).json(character);
-    })
-    .catch((error) => {
-      res.status(STATUS_ERROR).end("character not found");
-    });
+  try {
+    const { id } = req.params;
+    const ch = await axios.get(`${URL}/${id}`);
+    const { name, gender, species, origin, image, status } = ch.data;
+    const character = {
+      id: Number(id),
+      name,
+      gender,
+      species,
+      origin: origin?.name,
+      image,
+      status,
+    };
+    res.status(STATUS_OK).json(character);
+  } catch (error) {
+    //TODO: TESTING <-> fix error to -> .end(error.message)
+    res.status(STATUS_ERROR).end(error.message);
+  }
 };
 
-const getAllCharacters = function (req, res) {
-  axios.get(`${URL}?page=1`).then((result) => {
-    const characters = result.data?.results;
-    res.status(STATUS_OK).json(characters);
-  });
+// const getAllCharacters = function (req, res) {
+//   axios.get(`${URL}?page=1`).then((result) => {
+//     const characters = result.data?.results;
+//     res.status(STATUS_OK).json(characters);
+//   });
+// };
+const getAllCharacters = async function (req, res) {
+  try {
+    const characters = await axios.get(`${URL}?page=1`);
+    res.status(STATUS_OK).json(characters.data.results);
+  } catch (error) {
+    //TODO: TESTING <-> fix error to -> .end(error.message)
+    res.status(STATUS_ERROR).end(error.message);
+  }
 };
 
 module.exports = {
