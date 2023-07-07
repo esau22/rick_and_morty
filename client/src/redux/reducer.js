@@ -43,8 +43,8 @@ export default function reducer(state = initialState, { type, payload }) {
       }
       return {
         ...state,
-        characters: [payload, ...state.charactersOrigin],
-        charactersOrigin: [payload, ...state.charactersOrigin],
+        characters: [payload,...state.charactersOrigin],
+        charactersOrigin: [payload,...state.charactersOrigin],
       };
     case REMOVE_CHAR:
       const newCharacters = state.charactersOrigin.filter((ch) => {

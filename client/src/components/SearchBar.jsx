@@ -22,7 +22,7 @@ export default function SearchBar({ onSearch }) {
   };
   const randomChar = () => {
     const numRan = Math.floor(Math.random() * 825) + 1;
-    axios(`http://localhost:5000/rickandmorty/character/${numRan}`).then(
+    axios(`http://localhost:5020/rickandmorty/character/${numRan}`).then(
       // axios("http://localhost:1222/")
       ({ data }) => {
         if (data.name) {

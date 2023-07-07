@@ -56,31 +56,40 @@ export function removeChar(id) {
     payload: id,
   };
 }
-// http://localhost:5040/rickandmorty/favorite/fav   ${id}
+// http://localhost:5040/rickandmorty/fav   ${id}
 export function addFav(char) {
-  return function (dispatch) {
-    axios
-      .post(`http://localhost:5040/rickandmorty/favorite/fav`, char)
-      .then(({ data }) => {
-        return dispatch({
-          type: ADD_FAV,
-          payload: data,
-        });
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.post(
+        `http://localhost:5020/rickandmorty/fav`,
+        char
+      );
+      return dispatch({
+        type: ADD_FAV,
+        payload: data,
       });
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
+
 export function removeFav(id) {
-  return function (dispatch) {
-    axios
-      .delete(`http://localhost:5040/rickandmorty/favorite/fav/${id}`)
-      .then(({ data }) => {
-        return dispatch({
-          type: REMOVE_FAV,
-          payload: data,
-        });
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.delete(
+        `http://localhost:5020/rickandmorty/fav/${id}`
+      );
+      return dispatch({
+        type: REMOVE_FAV,
+        payload: data,
       });
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
+
 export function filterGender(gender) {
   return {
     type: FILTER,
@@ -112,6 +121,7 @@ export function next() {
 }
 
 export function createCharacter(character) {
+  character.id = Number(character.id);
   return {
     type: CREATE_CHAR,
     payload: character,

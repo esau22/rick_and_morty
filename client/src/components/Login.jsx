@@ -51,7 +51,7 @@ export default function Login({ login }) {
     // console.log("::::aux::", inputsErrors)
     if (aux.length === 0) {
       //TODO: tomá los inputs envialos a POST
-
+     
       setInputsErrors({
         email: "",
         password: "",
