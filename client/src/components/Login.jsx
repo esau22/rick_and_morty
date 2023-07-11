@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import style from "../styles/Login.module.css";
+//import style from "../styles/Login.module.css";
 
 const regExEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 const regexPassword =
@@ -51,7 +51,7 @@ export default function Login({ login }) {
     // console.log("::::aux::", inputsErrors)
     if (aux.length === 0) {
       //TODO: tomá los inputs envialos a POST
-     
+
       setInputsErrors({
         email: "",
         password: "",
@@ -70,36 +70,52 @@ export default function Login({ login }) {
   return (
     console.log("--> ", inputs, inputsErrors),
     (
-      <div className={style.login}>
-        <form onSubmit={handleSubmit}>
-          <h1>Rick & Morty</h1>
-          <div className={style.inputs}>
-            <label>Email: </label>
+      <div className="flex items-center justify-center h-screen">
+        <form
+          className="bg-green-200 p-8 rounded border border-gray-400"
+          onSubmit={handleSubmit}
+        >
+          <h1 className="text-2xl mb-4">Rick & Morty</h1>
+          <div className="flex flex-col mb-4">
+            <label className="mb-1 font-bold">Email:</label>
             <input
               type="text"
               key="email"
               name="email"
               value={inputs.email}
               onChange={handleChange}
-            ></input>
-            <span>{inputsErrors?.email && inputsErrors.email}</span>
-            <hr></hr>
-            <label>Password: </label>
+              className="border border-gray-400 p-2 focus:outline-none focus:border-blue-500"
+            />
+            {inputsErrors?.email && (
+              <span className="text-red-500">{inputsErrors.email}</span>
+            )}
+          </div>
+          <div className="flex flex-col mb-4">
+            <label className="mb-1 font-bold">Password:</label>
             <input
               type="password"
               key="password"
               name="password"
               value={inputs.password}
               onChange={handleChange}
-            ></input>
-            <span>{inputsErrors?.password && inputsErrors.password}</span>
+              className="border border-gray-400 p-2 focus:outline-none focus:border-blue-500"
+            />
+            {inputsErrors?.password && (
+              <span className="text-red-500">{inputsErrors.password}</span>
+            )}
           </div>
-          <hr></hr>
           {Object.keys(inputsErrors).length === 0 ? (
-            <button type="submit">Ingresar</button>
+            <button
+              type="submit"
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            >
+              Ingresar
+            </button>
           ) : null}
           <Link to="/home">
-            <button>Ingresar</button>
+            <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+              Ingresar
+            </button>
           </Link>
         </form>
       </div>

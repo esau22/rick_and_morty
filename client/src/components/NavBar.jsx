@@ -1,5 +1,4 @@
 import React from "react";
-import style from "../styles/NavBar.module.css";
 import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -9,25 +8,38 @@ export default function NavBar({ onSearch, logout }) {
   const dispatch = useDispatch();
 
   return (
-    <div className={style.nav}>
-      <button onClick={logout}>LogOut</button>
+    <div className="flex justify-evenly items-center bg-blue-300 border border-gray-300 rounded p-2 m-4 font-bold">
+      <button
+        onClick={logout}
+        className="border-gray-300 text-black px-4 py-2 rounded"
+      >
+        LogOut
+      </button>
 
       {/* <Link to={"/"}>
         <div>LogOut</div>
       </Link> */}
 
-      <Link className={style.link} to={"/home"}>
-        <button onClick={() => dispatch(resetCharacters())}>Home</button>
+      <Link
+        to="/home"
+        className="link"
+        onClick={() => dispatch(resetCharacters())}
+      >
+        Home
       </Link>
-      <Link className={style.link} to={"/about"}>
-        <div>About</div>
+
+      <Link to="/about" className="link">
+        About
       </Link>
-      <Link className={style.link} to={"/favorites"}>
-        <div>Favorites</div>
+
+      <Link to="/favorites" className="link">
+        Favorites
       </Link>
-      <Link className={style.link} to={"/create"}>
-        <div>Create</div>
+
+      <Link to="/create" className="link">
+        Create
       </Link>
+
       <SearchBar onSearch={onSearch} />
     </div>
   );

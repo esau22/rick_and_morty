@@ -1,5 +1,5 @@
 import Card from "./Card";
-import style from "../styles/Cards.module.css";
+//import style from "../styles/Cards.module.css";
 import { useSelector } from "react-redux";
 
 import Paginate from "./Paginate";
@@ -18,15 +18,12 @@ export default function Cards({ onClose }) {
   const viewCharacters = characters?.slice(desde, hasta);
   return (
     <div>
-      <div className={style.cards}>
-        {/* <h2>Estamos en el home y podemos mostrar y/o ver nuestras cards</h2> */}
-        {viewCharacters?.map((char, index) => {
-          return <Card key={char.id} char={char} onClose={onClose} />;
-        })}
+      <div className="grid grid-cols-6 gap-4 justify-items-center p-2 md:p-8">
+        {viewCharacters?.map((char, index) => (
+          <Card key={char.id} char={char} onClose={onClose} />
+        ))}
       </div>
-      <div>
-
-      </div>
+      <div></div>
       <Paginate numPage={numPage} cantPage={cantPage} />
     </div>
   );

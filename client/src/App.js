@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./App.css";
+import "./index.css";
 
 import Cards from "./components/Cards.jsx";
 import NavBar from "./components/NavBar";

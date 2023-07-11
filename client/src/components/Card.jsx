@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import style from "../styles/Card.module.css";
+//import style from "../styles/Card.module.css";
 
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -42,23 +42,35 @@ function Card({ char, onClose, myFavorites, removeFav, addFav, inFav }) {
   }, [myFavorites]);
 
   return (
-    <div className={style.card}>
-      <div className={style.close}>
+    <div className="bg-blue-300 border border-gray-400 rounded p-2 w-56">
+      <div className="flex justify-end">
         {isFav ? (
-          <button onClick={handleFavorite}>❤️</button>
+          <button onClick={handleFavorite} className="text-red-600 text-xl">
+            ❤️
+          </button>
         ) : (
-          <button onClick={handleFavorite}>🤍</button>
+          <button onClick={handleFavorite} className="text-gray-600 text-xl">
+            🤍
+          </button>
         )}
-        {inFav ? null : <button onClick={() => onClose(id)}>X</button>}
+        {inFav ? null : (
+          <button onClick={() => onClose(id)} className="ml-2 text-red-600">
+            X
+          </button>
+        )}
       </div>
-      <div className={style.info}>
-        <Link className={style.link} to={`/detail/${id}`}>
-          <h2>{name.slice(0, 16)}</h2>
+      <div className="text-center">
+        <Link to={`/detail/${id}`} className="text-blue-700 hover:underline">
+          <h2 className="text-lg font-bold mb-2">{name.slice(0, 16)}</h2>
           {/* <h2>{status}</h2> */}
-          <h2>{species}</h2>
+          <h2 className="text-sm mb-2">{species}</h2>
           {/* <h2>{gender}</h2>
          <h2>{origin?.name}</h2> */}
-          <img src={image} alt={name} />
+          <img
+            src={image}
+            alt={name}
+            className="rounded-full mx-auto mb-4 w-25 h-25 object-cover"
+          />
         </Link>
       </div>
     </div>
